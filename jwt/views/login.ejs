@@ -1,0 +1,63 @@
+<%- include('partials/header.ejs') %>
+
+<div class="login">
+    <h1>Login</h1>
+    <div id="errorelog"></div>
+    <form action="/auth" method="post">
+        <label for="username">
+            <!-- font awesome icon -->
+            <i class="fas fa-user"></i>
+        </label>
+        <input type="text" name="email" placeholder="email" id="email" required>
+        <label for="password">
+            <i class="fas fa-lock"></i>
+        </label>
+        <input type="password" name="password" placeholder="Password" id="password" required>
+        <input type="submit" value="Login">
+    </form>
+</div>
+if you dont have account please <a href="./register">register</a>
+
+
+<%- include('partials/footer.ejs') %>
+
+
+
+<script>
+    const form = document.querySelector('form')
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+
+        errorelog.textContent = '';
+
+
+        // get values
+        const email = form.email.value;
+        const password = form.password.value;
+
+        try {
+            const res = await fetch('/auth', {
+                method: 'POST',
+                body: JSON.stringify({ email, password }),
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            const data = await res.json();
+            if (data.errors) {
+
+                errorelog.textContent = data.errors.all;
+            }
+            if (data.email) {
+                document.location.href = 'http://localhost:1337/';
+            }
+
+        }
+        catch (err) {
+            console.log(err);
+        }
+
+    });
+
+
+</script>

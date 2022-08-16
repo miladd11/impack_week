@@ -1,0 +1,24 @@
+<%- include('partials/header.ejs') %>
+
+
+
+
+<h1>home page</h1>
+
+<%if(req.session.loggedin){%>
+<% if(userData && userData.length > 0) { %>
+    <% userData.forEach( user => { %>
+
+<div class="post-preview ">
+    <a href="/view/<%= user._id%>"><h2 class="post-title"><%= user.email %></h2></a>
+
+</div>
+
+    <% }) %>
+<% } else { %>
+    Nothing in the DB
+<% }%>
+<%}else{%>
+pls login for view content
+<%}%>
+<%- include('partials/footer.ejs') %>
