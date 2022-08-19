@@ -1,24 +1,67 @@
 <%- include('partials/header.ejs') %>
 
+<div class="alert-light col-10 mx-auto">
 
+    <div class="col-3 mx-auto"><a href="./addquestion"><button class="btn btn-success mx-auto">add question</button></a></div>
+    <h1>questions</h1>
 
+    <div class="clearfix mt-40">
+        <ul class="xsearch-items">
+            <% if(questionData && questionData.length > 0) { %>
+            <% questionData.forEach( question => { %>
+            <li class="search-item">
 
-<h1>home page</h1>
+                <div class="search-item-content">
+                    <h3 class="search-item-caption"><a href="./view/<%=question._id%>"><%=question.question%></a></h3>
 
-<%if(req.session.loggedin){%>
-<% if(userData && userData.length > 0) { %>
-    <% userData.forEach( user => { %>
+                    <div class="search-item-meta mb-15">
+                        <ul class="list-inline">
+                            <li class="time"><%=question.Dateofquestion%></li>
+                            <li><%=question.comments.countDocuments%> Comments</li>
+                            <li><a href="./view/<%=question._id%>">Read More</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <%=question.discription%>
+                    </div>
+                </div>
+            </li>
+            <% }) %>
+            <%}else{%>
 
-<div class="post-preview ">
-    <a href="/view/<%= user._id%>"><h2 class="post-title"><%= user.email %></h2></a>
+            <li class="search-item">
+
+                <div class="search-item-content">
+                    <h3 class="search-item-caption">Nothing in the DB</h3>
+                </div>
+            </li>
+            <% }%>
+
+        </ul>
+    </div>
+
 
 </div>
 
-    <% }) %>
-<% } else { %>
-    Nothing in the DB
-<% }%>
-<%}else{%>
-pls login for view content
-<%}%>
+
+
+
+  
 <%- include('partials/footer.ejs') %>
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+
+          
+        

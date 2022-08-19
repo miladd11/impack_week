@@ -37,6 +37,7 @@
     <Content Include="controllers\login.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="models\question.js" />
     <Content Include="models\user.js">
       <SubType>Code</SubType>
     </Content>
@@ -64,6 +65,10 @@
     <Content Include="server.js" />
     <Content Include="package.json" />
     <Content Include="README.md" />
+    <Content Include="views\addquestion.ejs">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\edit.ejs" />
     <Content Include="views\home.ejs">
       <SubType>Code</SubType>
     </Content>
@@ -71,6 +76,9 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\register.ejs">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\view.ejs">
       <SubType>Code</SubType>
     </Content>
   </ItemGroup>

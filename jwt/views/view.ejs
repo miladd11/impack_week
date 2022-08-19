@@ -1,0 +1,135 @@
+<%- include('partials/header.ejs') %>
+
+
+<div class="alert-light col-10 mx-auto">
+
+
+
+    <h1>questions</h1>
+    <a href="../deletequestion/<%=question._id%>" class="btn btn-danger">delete question</a>
+    <a href="../editquestion/<%=question._id%>" class="btn btn-danger">edit question</a>
+    <div class="clearfix mt-40">
+        <ul class="xsearch-items">
+            <% if(question) { %>
+
+            <li class="search-item">
+
+                <div class="search-item-content">
+                    <h3 class="search-item-caption"><a href="./view/<%=question._id%>"><%=question.question%></a></h3>
+
+                    <div class="search-item-meta mb-15">
+                        <ul class="list-inline">
+                            <li class="time"><%=question.Dateofquestion%></li>
+                            <li class="time">submited by <%=question.username%></li>
+
+
+                        </ul>
+                    </div>
+                    <div>
+                        <%=question.discription%>
+                    </div>
+                </div>
+            </li>
+
+            <%}else{%>
+
+            <li class="search-item">
+
+                <div class="search-item-content">
+                    <h3 class="search-item-caption">Nothing in the DB</h3>
+                </div>
+            </li>
+            <% }%>
+
+        </ul>
+    </div>
+
+
+
+
+
+    <div id="errorelog" class="alert alert-danger"></div>
+    <form class="form" action="/addcomment/<%=question._id%>" method="post">
+        <label for="comment">
+            <i class="fa fa-question"></i>
+        </label>
+        <textarea id="comment" name="comment" placeholder="comment" required></textarea>
+        <input type="submit" value="add">
+    </form>
+    <ul class="xsearch-items">
+        <% if(question.comments && question.comments.length>0) { %>
+        <%question.comments.forEach( comment => {%>
+        <li class="search-item">
+
+            <div class="search-item-content">
+                <h3 class="search-item-caption"></h3>
+
+                <div class="search-item-meta mb-15">
+                    <ul class="list-inline">
+                        <li class="time"><%=comment.Dateofcomment%></li>
+
+                        <li><a href="./view/<%=question._id%>">commented by <%=comment.username%></a></li>
+                    </ul>
+                </div>
+                <div>
+                    <%=comment.content%><br />
+                    <a href="../deletcomment/<%=question._id%>/<%=comment._id%>" class="btn btn-danger">delete</a>
+                </div>
+            </div>
+        </li>
+        <% }) %>
+        <%}else{%>
+
+        <li class="search-item">
+
+            <div class="search-item-content">
+                <h3 class="search-item-caption">Nothing in the DB</h3>
+            </div>
+        </li>
+        <% }%>
+
+    </ul>
+
+
+
+
+</div>
+
+    <%- include('partials/footer.ejs') %>
+<script>
+    const form = document.querySelector('form')
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+
+        document.getElementById("errorelog").innerText = '';
+       
+
+        // get values
+        const comment = document.getElementById("comment").value;
+
+        try {
+            const res = await fetch('/addcomment/<%=question._id%>', {
+                method: 'POST',
+                body: JSON.stringify({ comment }),
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            const data = await res.json();
+            if (data.errors) {
+
+                document.getElementById("errorelog").innerText = data.errors.all;
+            }
+            if (data=="ok") {
+                document.location.href = document.location.href;
+            }
+
+        }
+        catch (err) {
+            console.log(err);
+        }
+
+    });
+
+
+</script>

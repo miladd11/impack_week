@@ -2,24 +2,26 @@
 
 <div class="login">
     <h1>register</h1>
-    <div id="errorelog"></div>
-    <form action="/regauth" method="post">
+
+
+    <div id="errorelog" class="alert alert-danger"></div>
+    <form class="form" action="/regauth" method="post">
         <label for="username">
             <!-- font awesome icon -->
-            <i class="fas fa-user"></i>
+            <i class="fa fa-user"></i>
         </label>
         <input type="text" name="username" placeholder="username" id="username" required>
         <label for="email">
             <!-- font awesome icon -->
-            <i class="fas fa-user"></i>
+            <i class="fa fa-at"></i>
         </label>
         <input type="text" name="email" placeholder="email" id="email" required>
         <label for="password">
-            <i class="fas fa-lock"></i>
+            <i class="fa fa-lock"></i>
         </label>
         <input type="password" name="password" placeholder="Password" id="password" required>
         <label for="confirmpassword">
-            <i class="fas fa-lock"></i>
+            <i class="fa fa-lock"></i>
         </label>
         <input type="password" name="confirmpassword" placeholder="confirmpassword" id="confirmpassword" required>
         <input type="submit" value="Login">
@@ -38,7 +40,7 @@ if you  have account please <a href="./login">login</a>
         e.preventDefault();
 
 
-        errorelog.textContent = '';
+        document.getElementById("errorelog").innerText = '';
 
 
         // get values
@@ -58,7 +60,7 @@ if you  have account please <a href="./login">login</a>
             const data = await res.json();
             if (data.errors) {
 
-                errorelog.textContent = data.errors.all;
+                document.getElementById("errorelog").innerText = data.errors.all;
             }
             if (data.email) {
                 document.location.href = 'http://localhost:1337/login';

@@ -33,4 +33,16 @@ app.post('/auth', loginpost.login)
 app.get('/register', login.register);
 app.post('/regauth', loginpost.register)
 app.get('/logout', login.logout)
+app.get('/addquestion', login.addquestion);
+app.post('/addquestion', loginpost.addquestion);
+app.get('/view/:id', login.viewquestion);
+app.post('/addcomment/:id', loginpost.addcomment)
+app.get('/deletcomment/:postid/:id', login.deletecomment)
+app.get('/deletequestion/:id', login.deletequestion)
+app.get('/editquestion/:id', login.editquestion)
+app.post('/updatequestion/:id', loginpost.updatequestion)
+
+
+
+
 app.listen(port);

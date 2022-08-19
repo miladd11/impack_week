@@ -1,0 +1,69 @@
+<%- include('partials/header.ejs') %>
+
+
+
+
+    <div class="login">
+        <h1>add question</h1>
+        <div id="errorelog" class="alert alert-danger"></div>
+        <form class="form" action="/addquestion" method="post">
+            <label for="question">
+                <i class="fa fa-question"></i>
+            </label>
+            <input type="text" name="question" placeholder="question" id="question" required>
+            <label for="description">
+                <i class="fa fa-question"></i>
+            </label>
+            <textarea id="discription" name="discription" placeholder="description" required></textarea>
+            <input type="submit" value="add">
+        </form>
+    </div>
+    
+
+
+    <%- include('partials/footer.ejs') %>
+
+
+
+    <script>
+    const form = document.querySelector('form')
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+
+        document.getElementById("errorelog").innerText = '';
+        alert(document.getElementById("discription").value)
+
+        // get values
+        const question = document.getElementById("question").value;
+        const discription = document.getElementById("discription").value;
+
+        try {
+            const res = await fetch('/addquestion', {
+                method: 'POST',
+                body: JSON.stringify({ question, discription }),
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            const data = await res.json();
+            if (data.errors) {
+
+                document.getElementById("errorelog").innerText = data.errors.all;
+            }
+            if (data.username) {
+                document.location.href = 'http://localhost:1337/';
+            }
+
+        }
+        catch (err) {
+            console.log(err);
+        }
+
+    });
+
+
+    </script>
+
+
+
+

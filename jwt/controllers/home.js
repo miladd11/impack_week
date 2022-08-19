@@ -1,21 +1,23 @@
 
 const { render } = require("ejs");
 const { Model } = require("mongoose");
-const userModel = require("../models/user");
+const questionModel = require("../models/question");
 
-function homePage(req, res) {
-    userModel
-        .find()
-        .then((data) => {
-            res.render("home", {
-                userData: data,
-                req:req,
-               
-            });
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+const homePage = async (req, res) => {
+  
+    try {
+        questionModel
+            .find()
+            .then((data) => {
+                res.render("home", {
+                    questionData: data,
+                    req: req,
+
+                });
+            })
+    } catch (e) {
+        console.log(e);
+    }
     //res.render('home')
 }
 module.exports = {
