@@ -4,7 +4,8 @@ const { Model } = require("mongoose");
 const questionModel = require("../models/question");
 
 const homePage = async (req, res) => {
-  
+    
+    if (req.session.loggedin) {
     try {
         questionModel
             .find()
@@ -17,6 +18,9 @@ const homePage = async (req, res) => {
             })
     } catch (e) {
         console.log(e);
+    }
+} else {
+    res.status(200).send(arr = { "errors": { "login": "you should login" } });
     }
     //res.render('home')
 }

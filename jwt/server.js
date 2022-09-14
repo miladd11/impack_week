@@ -18,7 +18,7 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.json());
 
-mongoose.connect('mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.5.4', {
+mongoose.connect('mongodb://127.0.0.1:27017/last?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.5.4', {
     useNewUrlParser: true, useUnifiedTopology: true,
 })
     .then(() => {

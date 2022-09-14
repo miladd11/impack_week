@@ -6,8 +6,11 @@
 
 
     <h1>questions</h1>
+   
+    <% if(question && question.username == req.session.username){ %>
     <a href="../deletequestion/<%=question._id%>" class="btn btn-danger">delete question</a>
     <a href="../editquestion/<%=question._id%>" class="btn btn-danger">edit question</a>
+    <%}%>
     <div class="clearfix mt-40">
         <ul class="xsearch-items">
             <% if(question) { %>
@@ -73,7 +76,9 @@
                 </div>
                 <div>
                     <%=comment.content%><br />
+                    <% if(question.username == req.session.username){ %>
                     <a href="../deletcomment/<%=question._id%>/<%=comment._id%>" class="btn btn-danger">delete</a>
+                    <%}%>
                 </div>
             </div>
         </li>
